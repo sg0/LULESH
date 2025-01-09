@@ -207,8 +207,13 @@ Domain::~Domain()
    delete [] m_regElemlist;
    
 #if USE_MPI
+#if defined(USE_RAPID_FAM_ALLOC)
+   rapid_free(handle, commDataSend);
+   rapid_free(handle, commDataRecv);
+#else
    delete [] commDataSend;
    delete [] commDataRecv;
+#endif
 #endif
 } // End destructor
 
@@ -379,8 +384,13 @@ Domain::SetupCommBuffers(Int_t edgeNodes)
 		 (m_rowMax & m_colMax & m_planeMin) +
 		 (m_rowMax & m_colMax & m_planeMax)) * CACHE_COHERENCE_PAD_REAL ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+    this->commDataSend  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
+    this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
+#else
   this->commDataSend = new Real_t[comBufSize] ;
   this->commDataRecv = new Real_t[comBufSize] ;
+#endif  
   // prevent floating point exceptions 
   memset(this->commDataSend, 0, comBufSize*sizeof(Real_t)) ;
   memset(this->commDataRecv, 0, comBufSize*sizeof(Real_t)) ;

@@ -5,6 +5,10 @@
 #if USE_MPI
 #include <mpi.h>
 
+#if defined(USE_RAPID_FAM_ALLOC)
+#include "rapid.h"
+#endif
+
 /*
    define one of these three symbols:
 
@@ -436,7 +440,11 @@ class Domain {
    // Communication Work space 
    Real_t *commDataSend ;
    Real_t *commDataRecv ;
-   
+ 
+#if defined(USE_RAPID_FAM_ALLOC)
+  rapid_handle rapid;
+#endif
+
    // Maximum number of block neighbors 
    MPI_Request recvRequest[26] ; // 6 faces + 12 edges + 8 corners 
    MPI_Request sendRequest[26] ; // 6 faces + 12 edges + 8 corners 
