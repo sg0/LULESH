@@ -417,10 +417,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank - domain.tp()*domain.tp(), msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank - domain.tp()*domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
-         ++pmsg ;
+#endif
+	 ++pmsg ;
       }
       if (planeMax && doSend) {
          destAddr = &domain.commDataSend[pmsg * maxPlaneComm] ;
