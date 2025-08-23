@@ -107,9 +107,16 @@ void CommRecv(Domain& domain, Int_t msgType, Index_t xferFields,
       /* contiguous memory */
       int fromRank = myRank - domain.tp()*domain.tp() ;
       int recvCount = dx * dy * xferFields ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+      MPI_Irecv(&domain.commDataRecv[pmsg * maxPlaneComm], 
+		1, baseType, fromRank, msgType,
+                MPI_COMM_WORLD, &domain.recvRequest[pmsg]) ;
+#else 
       MPI_Irecv(&domain.commDataRecv[pmsg * maxPlaneComm],
                 recvCount, baseType, fromRank, msgType,
                 MPI_COMM_WORLD, &domain.recvRequest[pmsg]) ;
+#endif
       ++pmsg ;
    }
    if (planeMax) {
@@ -418,6 +425,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
          MPI_Isend(destAddr, 1, baseType,
                    myRank - domain.tp()*domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -439,9 +447,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank + domain.tp()*domain.tp(), msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank + domain.tp()*domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#endif
          ++pmsg ;
       }
    }
@@ -462,9 +477,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank - domain.tp(), msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank - domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#endif
          ++pmsg ;
       }
       if (rowMax && doSend) {
@@ -480,9 +502,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank + domain.tp(), msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank + domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#endif
          ++pmsg ;
       }
    }
@@ -503,9 +532,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank - 1, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank - 1, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#endif
          ++pmsg ;
       }
       if (colMax && doSend) {
@@ -521,9 +557,16 @@ void CommSend(Domain& domain, Int_t msgType,
          }
          destAddr -= xferFields*sendCount ;
 
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   myRank + 1, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*sendCount, baseType,
                    myRank + 1, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
+#endif
          ++pmsg ;
       }
    }
@@ -541,8 +584,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dz ;
          }
          destAddr -= xferFields*dz ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dz*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dz, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -558,8 +609,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dx ;
          }
          destAddr -= xferFields*dx ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dx*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dx, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -575,8 +634,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dy ;
          }
          destAddr -= xferFields*dy ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dy*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dy, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -592,8 +659,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dz ;
          }
          destAddr -= xferFields*dz ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dz*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dz, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -609,8 +684,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dx ;
          }
          destAddr -= xferFields*dx ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dx*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dx, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -626,8 +709,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dy ;
          }
          destAddr -= xferFields*dy ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dy*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else
          MPI_Isend(destAddr, xferFields*dy, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -643,8 +734,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dz ;
          }
          destAddr -= xferFields*dz ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dz*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dz, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -660,8 +759,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dx ;
          }
          destAddr -= xferFields*dx ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dx*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dx, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -677,8 +784,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dy ;
          }
          destAddr -= xferFields*dy ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dy*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dy, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -694,8 +809,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dz ;
          }
          destAddr -= xferFields*dz ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dz*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dz, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -711,8 +834,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dx ;
          }
          destAddr -= xferFields*dx ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dx*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dx, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -728,8 +859,16 @@ void CommSend(Domain& domain, Int_t msgType,
             destAddr += dy ;
          }
          destAddr -= xferFields*dy ;
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*dy*Index_t);
+         MPI_Isend(destAddr, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#else 
          MPI_Isend(destAddr, xferFields*dy, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
+#endif
          ++emsg ;
       }
 
@@ -742,8 +881,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(0) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMin && colMin && planeMax && doSend) {
@@ -756,8 +903,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMin && colMax && planeMin) {
@@ -770,8 +925,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMin && colMax && planeMax && doSend) {
@@ -784,8 +947,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMax && colMin && planeMin) {
@@ -798,8 +969,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMax && colMin && planeMax && doSend) {
@@ -812,8 +991,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMax && colMax && planeMin) {
@@ -826,8 +1013,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
       if (rowMax && colMax && planeMax && doSend) {
@@ -840,8 +1035,16 @@ void CommSend(Domain& domain, Int_t msgType,
          for (Index_t fi=0; fi<xferFields; ++fi) {
             comBuf[fi] = (domain.*fieldData[fi])(idx) ;
          }
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+         MPI_Isend(comBuf, 1, baseType,
+                   toRank, msgType,
+                   MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#else 
          MPI_Isend(comBuf, xferFields, baseType, toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
+#endif
          ++cmsg ;
       }
    }
@@ -899,6 +1102,10 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t opCount = dx * dy ;
 
       if (planeMin) {
+
+#if defined(USE_RAPID_FAM_ALLOC)
+	 rapid_flush_fence_consumer(rapid, comBuf, xferFields*Index_t);
+#endif 
          /* contiguous memory */
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;

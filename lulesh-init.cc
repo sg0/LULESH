@@ -208,8 +208,8 @@ Domain::~Domain()
    
 #if USE_MPI
 #if defined(USE_RAPID_FAM_ALLOC)
-   rapid_free(handle, commDataSend);
-   rapid_free(handle, commDataRecv);
+   rapid_free(rapid, commDataSend);
+   rapid_free(rapid, commDataRecv);
 #else
    delete [] commDataSend;
    delete [] commDataRecv;
@@ -386,7 +386,9 @@ Domain::SetupCommBuffers(Int_t edgeNodes)
 
 #if defined(USE_RAPID_FAM_ALLOC)
     this->commDataSend  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
-    this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
+    Index_t recvPtrSize = m_maxPlaneSize * MAX_FIELDS_PER_MPI_COMM ;
+    recvPtrSize += m_maxEdgeSize * MAX_FIELDS_PER_MPI_COMM + CACHE_COHERENCE_PAD_REAL ;
+    this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, recvPtrSize*sizeof(Real_t)));
 #else
   this->commDataSend = new Real_t[comBufSize] ;
   this->commDataRecv = new Real_t[comBufSize] ;
