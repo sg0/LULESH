@@ -442,7 +442,7 @@ class Domain {
    Real_t *commDataRecv ;
  
 #if defined(USE_RAPID_FAM_ALLOC)
-   static rapid::Fam rapid ;
+   rapid::Fam rapid ;
 #endif
 
    // Maximum number of block neighbors 
