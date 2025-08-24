@@ -388,16 +388,17 @@ Domain::SetupCommBuffers(Int_t edgeNodes)
 		 (m_rowMax & m_colMax & m_planeMax)) * CACHE_COHERENCE_PAD_REAL ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-  rapid::Fam rapid = rapid::Fam{} ;
+  this->rapid = rapid::Fam{} ;
   this->commDataSend  = static_cast<Real_t*>(this->rapid.malloc(comBufSize*sizeof(Real_t)));
   this->commDataRecv  = static_cast<Real_t*>(this->rapid.malloc(26*sizeof(Real_t)));
+  memset(this->commDataSend, 0, comBufSize*sizeof(Real_t)) ;
 #else
   this->commDataSend = new Real_t[comBufSize] ;
   this->commDataRecv = new Real_t[comBufSize] ;
-#endif  
   // prevent floating point exceptions 
   memset(this->commDataSend, 0, comBufSize*sizeof(Real_t)) ;
   memset(this->commDataRecv, 0, comBufSize*sizeof(Real_t)) ;
+#endif  
 #endif   
 
   // Boundary nodesets
