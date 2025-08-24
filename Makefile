@@ -9,7 +9,7 @@ MPI_INC = /opt/local/include/openmpi
 MPI_LIB = /opt/local/lib
 
 SERCXX = g++ -DUSE_MPI=0
-MPICXX = mpig++ -DUSE_MPI=1
+MPICXX = mpic++ -DUSE_MPI=1
 CXX = $(MPICXX)
 
 SOURCES2.0 = \
@@ -42,9 +42,9 @@ LDFLAGS = -g -O3 -fopenmp
 #CXXFLAGS = -g -DVIZ_MESH -I${SILO_INCDIR} -Wall -Wno-pragmas
 #LDFLAGS = -g -L${SILO_LIBDIR} -Wl,-rpath -Wl,${SILO_LIBDIR} -lsiloh5 -lhdf5
 
-ifneq ($(ENABLE_RAPID_FAM),0)
+ifneq ($(ENABLE_RAPID_FAM),1)
 	RAPID_ROOT = /share/micron/rapid/install/gcc-release
-	CXXFLAGS += -DUSE_RAPID_FAM_ALLOC -I$(RAPID_ROOT)/include
+	CXXFLAGS += -std=c++20 -DUSE_RAPID_FAM_ALLOC -I$(RAPID_ROOT)/include
 	LDFLAGS += -Wl,-rpath=$(RAPID_ROOT)/lib64 -L$(RAPID_ROOT)/lib64 -lrapid 
 endif
 

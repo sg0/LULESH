@@ -5,8 +5,8 @@
 #if USE_MPI
 #include <mpi.h>
 
-#if defined(USE_RAPID_FAM_ALLOC)
-#include "rapid.h"
+#ifdef USE_RAPID_FAM_ALLOC
+#include "rapid.hpp"
 #endif
 
 /*
@@ -442,7 +442,7 @@ class Domain {
    Real_t *commDataRecv ;
  
 #if defined(USE_RAPID_FAM_ALLOC)
-  rapid_handle rapid;
+   static rapid::Fam rapid ;
 #endif
 
    // Maximum number of block neighbors 
@@ -451,6 +451,7 @@ class Domain {
 #endif
 
   private:
+
 
    void BuildMesh(Int_t nx, Int_t edgeNodes, Int_t edgeElems);
    void SetupThreadSupportStructures();
