@@ -392,7 +392,29 @@ Domain::SetupCommBuffers(Int_t edgeNodes)
 
 #if defined(USE_RAPID_FAM_ALLOC)
   this->commDataSend  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
-  this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, 26*sizeof(Real_t)));
+  
+    // account for face communication 
+  Index_t comPtrSize = (m_rowMin + m_rowMax + m_colMin + m_colMax + m_planeMin + m_planeMax) ;
+
+  // account for edge communication 
+  comPtrSize +=
+    ((m_rowMin & m_colMin) + (m_rowMin & m_planeMin) + (m_colMin & m_planeMin) +
+     (m_rowMax & m_colMax) + (m_rowMax & m_planeMax) + (m_colMax & m_planeMax) +
+     (m_rowMax & m_colMin) + (m_rowMin & m_planeMax) + (m_colMin & m_planeMax) +
+     (m_rowMin & m_colMax) + (m_rowMax & m_planeMin) + (m_colMax & m_planeMin)) ;
+
+  // account for corner communication 
+  // factor of 16 is so each buffer has its own cache line 
+  comPtrSize += ((m_rowMin & m_colMin & m_planeMin) +
+		 (m_rowMin & m_colMin & m_planeMax) +
+		 (m_rowMin & m_colMax & m_planeMin) +
+		 (m_rowMin & m_colMax & m_planeMax) +
+		 (m_rowMax & m_colMin & m_planeMin) +
+		 (m_rowMax & m_colMin & m_planeMax) +
+		 (m_rowMax & m_colMax & m_planeMin) +
+		 (m_rowMax & m_colMax & m_planeMax)) ;
+
+  this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, comPtrSize*sizeof(Real_t)));  
   memset(this->commDataSend, 0, comBufSize*sizeof(Real_t)) ;
 #else
   this->commDataSend = new Real_t[comBufSize] ;
