@@ -582,7 +582,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer(destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid, destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank - domain.tp()*domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -605,7 +605,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank + domain.tp()*domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -635,7 +635,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank - domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -660,7 +660,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank + domain.tp(), msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -690,7 +690,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank - 1, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -715,7 +715,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*sendCount ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*sendCount*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*sendCount*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    myRank + 1, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg]) ;
@@ -743,7 +743,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dz ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dz*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dz*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -768,7 +768,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dx ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dx*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dx*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -793,7 +793,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dy ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dy*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dy*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -818,7 +818,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dz ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dz*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dz*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -843,7 +843,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dx ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dx*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dx*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -868,7 +868,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dy ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dy*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dy*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -893,7 +893,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dz ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dz*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dz*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -918,7 +918,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dx ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dx*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dx*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -943,7 +943,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dy ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dy*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dy*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -968,7 +968,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dz ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dz*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dz*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -993,7 +993,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dx ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dx*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dx*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -1018,7 +1018,7 @@ void CommSend(Domain& domain, Int_t msgType,
          destAddr -= xferFields*dy ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( destAddr, xferFields*dy*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  destAddr, xferFields*dy*sizeof(Index_t));
          MPI_Isend(destAddr, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg]) ;
@@ -1040,7 +1040,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1062,7 +1062,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1084,7 +1084,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1106,7 +1106,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1128,7 +1128,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1150,7 +1150,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1172,7 +1172,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1194,7 +1194,7 @@ void CommSend(Domain& domain, Int_t msgType,
          }
 
 #if defined(USE_RAPID_FAM_ALLOC)
-	 domain.rapid.flush_fence_consumer( comBuf, xferFields*sizeof(Index_t));
+	 rapid_flush_fence_consumer(rapid,  comBuf, xferFields*sizeof(Index_t));
          MPI_Isend(comBuf, 1, baseType,
                    toRank, msgType,
                    MPI_COMM_WORLD, &domain.sendRequest[pmsg+emsg+cmsg]) ;
@@ -1262,7 +1262,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
 
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
 	 /* contiguous memory */
@@ -1282,7 +1282,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
 
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
          /* contiguous memory */
@@ -1307,7 +1307,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       if (rowMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
          /* contiguous memory */
@@ -1328,7 +1328,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       if (rowMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else   
 	 /* contiguous memory */
@@ -1354,7 +1354,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       if (colMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else       
 	 /* contiguous memory */
@@ -1375,7 +1375,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       if (colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	 /* contiguous memory */
@@ -1398,7 +1398,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMin & colMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1419,7 +1419,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMin & planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -1440,7 +1440,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (colMin & planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -1461,7 +1461,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMax & colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -1482,7 +1482,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMax & planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1503,7 +1503,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (colMax & planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1524,7 +1524,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMax & colMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1545,7 +1545,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMin & planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1566,7 +1566,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (colMin & planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else       
@@ -1587,7 +1587,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMin & colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -1608,7 +1608,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMax & planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -1629,7 +1629,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (colMax & planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
          srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -1650,7 +1650,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
    if (rowMin & colMin & planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1670,7 +1670,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*dy*(dz - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1690,7 +1690,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1710,7 +1710,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*dy*(dz - 1) + (dx - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1730,7 +1730,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*(dy - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1750,7 +1750,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*dy*(dz - 1) + dx*(dy - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1770,7 +1770,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*dy - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1790,7 +1790,7 @@ void CommSBN(Domain& domain, Int_t xferFields, Domain_member *fieldData) {
       Index_t idx = dx*dy*dz - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
          MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
          Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -1868,7 +1868,7 @@ void CommSyncPosVel(Domain& domain) {
       if (planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
          /* contiguous memory */
@@ -1887,7 +1887,7 @@ void CommSyncPosVel(Domain& domain) {
       if (planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
      	      /* contiguous memory */
@@ -1912,7 +1912,7 @@ void CommSyncPosVel(Domain& domain) {
       if (rowMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else
      	      /* contiguous memory */
@@ -1933,7 +1933,7 @@ void CommSyncPosVel(Domain& domain) {
       if (rowMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else        
 	      /* contiguous memory */
@@ -1960,7 +1960,7 @@ void CommSyncPosVel(Domain& domain) {
       if (colMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	      /* contiguous memory */
@@ -1981,7 +1981,7 @@ void CommSyncPosVel(Domain& domain) {
       if (colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
 	 MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-	 domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+	 rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
 	 srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	      /* contiguous memory */
@@ -2004,7 +2004,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMin && colMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2025,7 +2025,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMin && planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2046,7 +2046,7 @@ void CommSyncPosVel(Domain& domain) {
    if (colMin && planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2067,7 +2067,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMax && colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2088,7 +2088,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMax && planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2109,7 +2109,7 @@ void CommSyncPosVel(Domain& domain) {
    if (colMax && planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2130,7 +2130,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMax && colMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2151,7 +2151,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMin && planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2172,7 +2172,7 @@ void CommSyncPosVel(Domain& domain) {
    if (colMin && planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else 
@@ -2193,7 +2193,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMin && colMax && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dz*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -2214,7 +2214,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMax && planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dx*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else      
@@ -2235,7 +2235,7 @@ void CommSyncPosVel(Domain& domain) {
    if (colMax && planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg], dy*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm] ;
 #else  
@@ -2257,7 +2257,7 @@ void CommSyncPosVel(Domain& domain) {
    if (rowMin && colMin && planeMin && doRecv) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2277,7 +2277,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*dy*(dz - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2297,7 +2297,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2317,7 +2317,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*dy*(dz - 1) + (dx - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2337,7 +2337,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*(dy - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2357,7 +2357,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*dy*(dz - 1) + dx*(dy - 1) ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2377,7 +2377,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*dy - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2397,7 +2397,7 @@ void CommSyncPosVel(Domain& domain) {
       Index_t idx = dx*dy*dz - 1 ;
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg+emsg+cmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg+emsg+cmsg], xferFields*sizeof(Index_t));
       Real_t *comBuf = &domain.commDataRecv[pmsg * maxPlaneComm+
                                        emsg * maxEdgeComm+
                                       cmsg * CACHE_COHERENCE_PAD_REAL] ;
@@ -2476,7 +2476,7 @@ void CommMonoQ(Domain& domain)
       if (planeMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
          /* contiguous memory */
@@ -2496,7 +2496,7 @@ void CommMonoQ(Domain& domain)
       if (planeMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	      /* contiguous memory */
@@ -2522,7 +2522,7 @@ void CommMonoQ(Domain& domain)
       if (rowMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else     
 	      /* contiguous memory */
@@ -2542,7 +2542,7 @@ void CommMonoQ(Domain& domain)
       if (rowMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else      
 	      /* contiguous memory */
@@ -2567,7 +2567,7 @@ void CommMonoQ(Domain& domain)
       if (colMin) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	      /* contiguous memory */
@@ -2587,7 +2587,7 @@ void CommMonoQ(Domain& domain)
       if (colMax) {
 #if defined(USE_RAPID_FAM_ALLOC)
       MPI_Wait(&domain.recvRequest[pmsg], &status) ;
-      domain.rapid.flush_fence_producer( &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
+      rapid_flush_fence_producer(rapid,  &domain.commDataRecv[pmsg], opCount*xferFields*sizeof(Index_t));
       srcAddr = &domain.commDataRecv[pmsg * maxPlaneComm] ;
 #else 
      	      /* contiguous memory */

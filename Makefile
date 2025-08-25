@@ -5,11 +5,11 @@ SHELL = /bin/sh
 
 LULESH_EXEC = lulesh2.0
 
-MPI_INC = /opt/local/include/openmpi
-MPI_LIB = /opt/local/lib
+MPI_INC = /home/ghos167/builds/mpich-4.3.1/include
+MPI_LIB = /home/ghos167/builds/mpich-4.3.1/lib
 
 SERCXX = g++ -DUSE_MPI=0
-MPICXX = mpic++ -DUSE_MPI=1
+MPICXX = mpicxx -DUSE_MPI=1
 CXX = $(MPICXX)
 
 SOURCES2.0 = \
@@ -49,8 +49,8 @@ ifneq ($(ENABLE_RAPID_FAM),1)
 endif
 
 .cc.o: lulesh.h
-	@echo "Building $<"
-	$(CXX) -c $(CXXFLAGS) -o $@  $<
+#	@echo "Building $<"
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 all: $(LULESH_EXEC)
 

@@ -14,6 +14,9 @@
 #include <cstdlib>
 #include "lulesh.h"
 
+#ifdef USE_RAPID_FAM_ALLOC
+rapid_handle rapid;
+#endif
 
 /////////////////////////////////////////////////////////////////////
 Domain::Domain(Int_t numRanks, Index_t colLoc,
@@ -211,8 +214,8 @@ Domain::~Domain()
    
 #if USE_MPI
 #if defined(USE_RAPID_FAM_ALLOC)
-   this->rapid.free(commDataSend);
-   this->rapid.free(commDataRecv);
+   rapid_free(rapid, commDataSend);
+   rapid_free(rapid, commDataRecv);
 #else
    delete [] commDataSend;
    delete [] commDataRecv;
@@ -388,9 +391,8 @@ Domain::SetupCommBuffers(Int_t edgeNodes)
 		 (m_rowMax & m_colMax & m_planeMax)) * CACHE_COHERENCE_PAD_REAL ;
 
 #if defined(USE_RAPID_FAM_ALLOC)
-  this->rapid = rapid::Fam{} ;
-  this->commDataSend  = static_cast<Real_t*>(this->rapid.malloc(comBufSize*sizeof(Real_t)));
-  this->commDataRecv  = static_cast<Real_t*>(this->rapid.malloc(26*sizeof(Real_t)));
+  this->commDataSend  = static_cast<Real_t*>(rapid_malloc(rapid, comBufSize*sizeof(Real_t)));
+  this->commDataRecv  = static_cast<Real_t*>(rapid_malloc(rapid, 26*sizeof(Real_t)));
   memset(this->commDataSend, 0, comBufSize*sizeof(Real_t)) ;
 #else
   this->commDataSend = new Real_t[comBufSize] ;

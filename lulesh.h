@@ -6,7 +6,8 @@
 #include <mpi.h>
 
 #ifdef USE_RAPID_FAM_ALLOC
-#include "rapid.hpp"
+#include "rapid.h"
+extern rapid_handle rapid ;
 #endif
 
 /*
@@ -442,7 +443,6 @@ class Domain {
    Real_t *commDataRecv ;
  
 #if defined(USE_RAPID_FAM_ALLOC)
-   rapid::Fam rapid ;
 #endif
 
    // Maximum number of block neighbors 
