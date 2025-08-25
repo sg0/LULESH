@@ -42,7 +42,7 @@ LDFLAGS = -g -O3 -fopenmp
 #CXXFLAGS = -g -DVIZ_MESH -I${SILO_INCDIR} -Wall -Wno-pragmas
 #LDFLAGS = -g -L${SILO_LIBDIR} -Wl,-rpath -Wl,${SILO_LIBDIR} -lsiloh5 -lhdf5
 
-ifneq ($(ENABLE_RAPID_FAM),1)
+ifneq ($(ENABLE_RAPID_FAM),0)
 	RAPID_ROOT = /share/micron/rapid/install/gcc-release
 	CXXFLAGS += -std=c++20 -DUSE_RAPID_FAM_ALLOC -I$(RAPID_ROOT)/include
 	LDFLAGS += -Wl,-rpath=$(RAPID_ROOT)/lib64 -L$(RAPID_ROOT)/lib64 -lrapid 
