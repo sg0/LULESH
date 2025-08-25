@@ -41,7 +41,7 @@ LDFLAGS = -g -O3 -fopenmp
 #below is and example of how to make with silo, hdf5 to get vizulization by default all this is turned off.  All paths are Livermore specific.
 #CXXFLAGS = -g -DVIZ_MESH -I${SILO_INCDIR} -Wall -Wno-pragmas
 #LDFLAGS = -g -L${SILO_LIBDIR} -Wl,-rpath -Wl,${SILO_LIBDIR} -lsiloh5 -lhdf5
-
+ENABLE_RAPID_FAM = 0
 ifneq ($(ENABLE_RAPID_FAM),0)
 	RAPID_ROOT = /share/micron/rapid/install/gcc-release
 	CXXFLAGS += -std=c++20 -DUSE_RAPID_FAM_ALLOC -I$(RAPID_ROOT)/include
