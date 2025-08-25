@@ -15,7 +15,7 @@
 #include "lulesh.h"
 
 #ifdef USE_RAPID_FAM_ALLOC
-rapid_handle rapid;
+rapid_handle rapid = rapid_initialize();;
 #endif
 
 /////////////////////////////////////////////////////////////////////
