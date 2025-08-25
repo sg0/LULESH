@@ -5,8 +5,11 @@ SHELL = /bin/sh
 
 LULESH_EXEC = lulesh2.0
 
-MPI_INC = /home/ghos167/builds/mpich-4.3.1/include
-MPI_LIB = /home/ghos167/builds/mpich-4.3.1/lib
+#MPI_INC = /home/ghos167/builds/mpich-4.3.1/include
+#MPI_LIB = /home/ghos167/builds/mpich-4.3.1/lib
+
+MPI_INC = /usr/lib64/openmpi/include
+MPI_LIB = /usr/lib64/openmpi/lib
 
 SERCXX = g++ -DUSE_MPI=0
 MPICXX = mpicxx -DUSE_MPI=1
